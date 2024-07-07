@@ -109,7 +109,7 @@ const logout = () => {
     loader.classList.remove("load");
     window.location.href = "./index.html";
   }, 2000);
-  // localStorage.clear();
+  localStorage.clear();
 };
 
 // let getEyelogin = document.getElementById("eyelogin");
