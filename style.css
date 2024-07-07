@@ -1,0 +1,273 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+  --primary-color: #fcc822;
+  --secondary-color: #333333;
+  --gray-color: #828282;
+  --light-gray: #e0e0e0;
+  --light-gray2: #ecece8;
+  --white-color: #ffffff;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+/* ====================Index Page Styling==================== */
+
+.my-nav {
+  padding: 10px 20px !important;
+}
+.my-nav .container-fluid {
+  border-bottom: 1px solid var(--light-gray2);
+}
+.nav-link {
+  padding: none !important;
+  color: var(--gray-color) !important;
+  transition: 0.3s;
+}
+.nav-link:hover {
+  color: var(--primary-color) !important;
+  transition: 0.3s;
+}
+.my-btn {
+  background-color: var(--white-color);
+  padding: 10px 30px !important;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color) !important ;
+  transition: 0.3s;
+}
+.my-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--white-color) !important;
+  transition: 0.3s;
+}
+.solid-btn {
+  padding: 10px 30px !important;
+  border: 1px solid var(--primary-color) !important;
+  background-color: var(--primary-color) !important ;
+  color: var(--white-color) !important;
+  box-shadow: 0px 10.45px 23.22px -6.97px #fbe18f;
+  transition: 0.3s;
+  margin-top: 10px !important;
+}
+.solid-btn:hover {
+  background-color: var(--white-color) !important;
+  color: var(--primary-color) !important;
+  transition: 0.3s;
+}
+.nav-item {
+  padding-left: 30px;
+}
+.banner {
+  padding: 10px;
+}
+.banner h1,
+.banner p {
+  margin-bottom: 40px;
+}
+.banner h1 {
+  font-size: 60px;
+}
+.banner p {
+  color: var(--gray-color);
+  padding-left: 10px;
+  border-left: 2px solid var(--secondary-color);
+  font-size: 18px;
+}
+.banner .image img {
+  width: 100%;
+}
+.buttons a {
+  color: var(--primary-color) !important;
+}
+.buttons i {
+  padding-right: 5px;
+}
+.buttons button {
+  margin-right: 30px;
+}
+
+/* ====================Log In Page Styling==================== */
+
+.login {
+  padding: 50px 0px;
+}
+.login #loginError {
+  color: red;
+  margin-top: 10px;
+}
+
+.login .logo h2 {
+  color: var(--gray-color);
+  font-size: 25px;
+  text-align: center;
+  margin: 30px 0px;
+}
+.login .input-wrapper,
+.login .logo h2,
+.login .my-links,
+.login .check-boxes,
+.btn-wrapper {
+  margin: 30px 0px;
+}
+.login .input-wrapper input {
+  padding: 10px;
+  border: 1px solid var(--light-gray);
+  outline: none;
+  margin: 5px 0px;
+}
+.login .input-wrapper input:focus {
+  border-left: 5px solid var(--primary-color);
+}
+
+::placeholder {
+  color: var(--primary-color);
+}
+.login .check-boxes {
+  color: var(--gray-color);
+}
+.login .check-boxes input {
+  margin-right: 5px;
+}
+.login .btn-wrapper button {
+  margin-right: 50px;
+}
+.login .my-links p {
+  display: inline-block;
+}
+.login .my-links a {
+  margin-left: 50px;
+  color: var(--primary-color) !important;
+}
+@media screen and (max-width: 768px) {
+  .login .row {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+  }
+}
+
+/* Sign Up Page Styling */
+
+.sign-up {
+  padding: 15px 0px;
+}
+.sign-up .input-wrapper h2 {
+  text-align: center;
+  margin: 30px 0px;
+  color: var(--gray-color);
+}
+.sign-up .input-wrapper input {
+  padding: 10px;
+  border: 1px solid var(--light-gray);
+  outline: none;
+  margin: 5px 0px;
+}
+.sign-up .input-wrapper input:focus {
+  border-left: 5px solid var(--primary-color);
+}
+.sign-up .login-span {
+  color: var(--primary-color) !important;
+}
+.sign-up button,
+.checkbox-wrapper {
+  margin: 10px 0px;
+}
+.sign-up .checkbox-wrapper label {
+  margin-right: 40px;
+}
+.sign-up .checkbox-wrapper input {
+  margin-right: 5px;
+}
+.sign-up #error {
+  color: red;
+}
+.sign-up .file input[type="file"] {
+  border: none !important;
+}
+.sign-up #showImg {
+  height: 80px;
+  width: 80px;
+  object-fit: contain;
+}
+
+/* toggle eye icon styling */
+
+.passwordInputWrapper {
+  position: relative;
+}
+.passwordInputWrapper input {
+  width: 100%;
+}
+.passwordInputWrapper i {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+/* loader */
+
+.loading {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.loading.load {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.loading-wave {
+  width: 300px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.loading-bar {
+  width: 20px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  animation: loading-wave-animation 1s ease-in-out infinite;
+}
+.loading-bar:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.loading-bar:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.loading-bar:nth-child(4) {
+  animation-delay: 0.3s;
+}
+@keyframes loading-wave-animation {
+  0% {
+    height: 10px;
+  }
+  50% {
+    height: 50px;
+  }
+  100% {
+    height: 10px;
+  }
+}
+
+/* ====================Dashboard Page Styling==================== */
+
+.dashboard-nav #showUserImg {
+  width: 30px;
+  height: 30px ;
+  margin-left: 10px;
+  object-fit: contain;
+  border-radius: 100%;
+}
