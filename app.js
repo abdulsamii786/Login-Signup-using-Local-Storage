@@ -13,7 +13,19 @@ const [
   signUpFemale,
   signUpImage,
 ] = signUpFormFields;
-let imageUrl;
+
+let userArrayData = JSON.parse(localStorage.getItem("userData")) || [];
+
+const isAlreadyLogin = () => {
+  let findTrueInLogin = userArrayData.find((item) => {
+    return item.isLogin === true;
+  });
+  console.log(findTrueInLogin);
+  if (findTrueInLogin) {
+    window.location.href = "./dashboard.html";
+  }
+};
+isAlreadyLogin();
 
 const signUp = () => {
   event.preventDefault();
@@ -31,19 +43,32 @@ const signUp = () => {
       passwordRegex.test(signUpPass.value)
     ) {
       if (signUpPass.value === confirmSignUpPass.value) {
-        document.body.style.overflow = "hidden";
-        loader.classList.add("load");
-        let obj = {
-          signUpName: signUpName.value,
-          signUpEmail: signUpEmail.value,
-          signUpPass: signUpPass.value,
-          signUpImage: imageUrl,
-        };
-        localStorage.setItem("userData", JSON.stringify(obj));
-        setTimeout(() => {
-          loader.classList.remove("load");
+        let alreadyExist = userArrayData.find((item) => {
+          return item.userSignUpEmail === signUpEmail.value;
+        });
+        if (alreadyExist) {
+          error.innerText = "Email already exist";
+          setTimeout(() => {
+            error.innerText = "";
+          }, 2000);
+          // alert("Email Already Exist");
+        } else {
+          // document.body.style.overflow = "hidden";
+          // loader.classList.add("load");
+          let obj = {
+            userSignUpName: signUpName.value,
+            userSignUpEmail: signUpEmail.value,
+            userSignUpPass: signUpPass.value,
+            userSignUpImage: imageUrl,
+            isLogin: false,
+          };
+          userArrayData.push(obj);
+          localStorage.setItem("userData", JSON.stringify(userArrayData));
+          // setTimeout(() => {
+          // loader.classList.remove("load");
           window.location.href = "./login.html";
-        }, 2000);
+          // }, 2000);
+        }
       } else {
         error.innerText = "Password do not match";
       }
@@ -52,6 +77,8 @@ const signUp = () => {
     }
   }
 };
+
+let imageUrl;
 
 const uploadImage = () => {
   let image = signUpImage.files[0];
@@ -70,18 +97,28 @@ let getData = JSON.parse(localStorage.getItem("userData"));
 
 const login = () => {
   event.preventDefault();
+  getData.isLogin = true;
+  localStorage.setItem("userData", JSON.stringify(getData));
+
   if (loginEmail.value !== "" && loginPassword.value !== "") {
     loginError.innerText = "";
-    if (getData.signUpEmail === loginEmail.value) {
+    let isEmailExist = getData.find((item) => {
+      return item.userSignUpEmail === loginEmail.value;
+    });
+    if (isEmailExist.userSignUpEmail === "admin@admin.com") {
+      window.location.href = "./admin.html";
+    } else if (isEmailExist) {
       loginError.innerText = "";
-      if (getData.signUpPass === loginPassword.value) {
+      if (isEmailExist.userSignUpPass === loginPassword.value) {
         loginError.innerText = "";
-        document.body.style.overflow = "hidden";
-        loader.classList.add("load");
-        setTimeout(() => {
-          loader.classList.remove("load");
-          window.location.href = "./dashboard.html";
-        }, 2000);
+
+        // document.body.style.overflow = "hidden";
+        // loader.classList.add("load");
+        // setTimeout(() => {
+        // loader.classList.remove("load");
+
+        window.location.href = "./dashboard.html";
+        // }, 2000);
       } else {
         loginError.innerText = "Invalid Password";
       }
@@ -96,19 +133,22 @@ const login = () => {
 let showUserName = document.getElementById("showUserName");
 let showUserImage = document.getElementById("showUserImg");
 
-const showData = () => {
-  showUserName.innerText = getData.signUpName;
-  showUserImage.src = getData.signUpImage;
-};
-showData();
+// function showData() {
+//   let findUserName = getData.find((item) => {
+//     return item.userSignUpName;
+//   });
+//   showUserName.innerText = findUserName.userSignUpName;
+//   showUserImage.src = findUserName.userSignUpImage;
+// }
+// showData();
 
 const logout = () => {
-  document.body.style.overflow = "hidden";
-  loader.classList.add("load");
-  setTimeout(() => {
-    loader.classList.remove("load");
-    window.location.href = "./index.html";
-  }, 2000);
+  // document.body.style.overflow = "hidden";
+  // loader.classList.add("load");
+  // setTimeout(() => {
+  // loader.classList.remove("load");
+  window.location.href = "./index.html";
+  // }, 2000);
   localStorage.clear();
 };
 
