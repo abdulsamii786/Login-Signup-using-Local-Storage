@@ -16,16 +16,15 @@ const [
 
 let userArrayData = JSON.parse(localStorage.getItem("userData")) || [];
 
-const isAlreadyLogin = () => {
-  let findTrueInLogin = userArrayData.find((item) => {
-    return item.isLogin === true;
-  });
-  console.log(findTrueInLogin);
-  if (findTrueInLogin) {
-    window.location.href = "./dashboard.html";
-  }
-};
-isAlreadyLogin();
+// const isAlreadyLogin = () => {
+//   let findTrueInLogin = userArrayData.find((item) => {
+//     return item.userIsLogin === true;
+//   });
+//   if (findTrueInLogin) {
+//     window.location.href = "./dashboard.html";
+//   }
+// };
+// isAlreadyLogin();
 
 const signUp = () => {
   event.preventDefault();
@@ -60,7 +59,7 @@ const signUp = () => {
             userSignUpEmail: signUpEmail.value,
             userSignUpPass: signUpPass.value,
             userSignUpImage: imageUrl,
-            isLogin: false,
+            userIsLogin: false,
           };
           userArrayData.push(obj);
           localStorage.setItem("userData", JSON.stringify(userArrayData));
@@ -97,7 +96,7 @@ let getData = JSON.parse(localStorage.getItem("userData"));
 
 const login = () => {
   event.preventDefault();
-  getData.isLogin = true;
+
   localStorage.setItem("userData", JSON.stringify(getData));
 
   if (loginEmail.value !== "" && loginPassword.value !== "") {
@@ -116,8 +115,10 @@ const login = () => {
         // loader.classList.add("load");
         // setTimeout(() => {
         // loader.classList.remove("load");
-
+        isEmailExist.userIsLogin = true;
+        localStorage.setItem("userData", JSON.stringify(getData));
         window.location.href = "./dashboard.html";
+
         // }, 2000);
       } else {
         loginError.innerText = "Invalid Password";
@@ -133,23 +134,33 @@ const login = () => {
 let showUserName = document.getElementById("showUserName");
 let showUserImage = document.getElementById("showUserImg");
 
-// function showData() {
-//   let findUserName = getData.find((item) => {
-//     return item.userSignUpName;
-//   });
-//   showUserName.innerText = findUserName.userSignUpName;
-//   showUserImage.src = findUserName.userSignUpImage;
-// }
-// showData();
+function showData() {
+  let findUserName = getData.find((item) => item.userSignUpName);
+  showUserName.innerText = findUserName.userSignUpName;
+  showUserImage.src = findUserName.userSignUpImage;
+}
+
+let findLogin = userArrayData.find((item) => item.userIsLogin === true);
+const redirection = () => {
+  if (findLogin) {
+    window.location.href = "./login.html";
+  }
+};
+// redirection();
 
 const logout = () => {
   // document.body.style.overflow = "hidden";
   // loader.classList.add("load");
   // setTimeout(() => {
   // loader.classList.remove("load");
+  let findTrueInLogin = userArrayData.find((item) => {
+    return item.userIsLogin === true;
+  });
+  findTrueInLogin.userIsLogin = false;
+  localStorage.setItem("userData", JSON.stringify(userArrayData));
   window.location.href = "./index.html";
   // }, 2000);
-  localStorage.clear();
+  // localStorage.clear();
 };
 
 // let getEyelogin = document.getElementById("eyelogin");
