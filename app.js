@@ -16,15 +16,21 @@ const [
 
 let userArrayData = JSON.parse(localStorage.getItem("userData")) || [];
 
-// const isAlreadyLogin = () => {
-//   let findTrueInLogin = userArrayData.find((item) => {
-//     return item.userIsLogin === true;
-//   });
-//   if (findTrueInLogin) {
-//     window.location.href = "./dashboard.html";
-//   }
-// };
-// isAlreadyLogin();
+let findLogin = userArrayData.find((item) => item.userIsLogin === true);
+
+const isAlreadyLogin = () => {
+  if (findLogin) {
+    window.location.href = "./dashboard.html";
+  }
+};
+if (
+  window.location.pathname === "/login.html" ||
+  window.location.pathname === "/sign-up.html" ||
+  window.location.pathname === "/index.html" ||
+  window.location.pathname === "/admin.html"
+) {
+  isAlreadyLogin();
+}
 
 const signUp = () => {
   event.preventDefault();
@@ -105,7 +111,9 @@ const login = () => {
       return item.userSignUpEmail === loginEmail.value;
     });
     if (isEmailExist.userSignUpEmail === "admin@admin.com") {
-      window.location.href = "./admin.html";
+      isEmailExist.userIsLogin = true;
+      localStorage.setItem("userData", JSON.stringify(getData));
+      window.location.href = "./dashboard.html";
     } else if (isEmailExist) {
       loginError.innerText = "";
       if (isEmailExist.userSignUpPass === loginPassword.value) {
@@ -131,32 +139,36 @@ const login = () => {
   }
 };
 
+const redirection = () => {
+  if (!findLogin) {
+    window.location.pathname = "./login.html";
+  }
+};
+if (window.location.pathname === "/dashboard.html") {
+  redirection();
+}
+
 let showUserName = document.getElementById("showUserName");
 let showUserImage = document.getElementById("showUserImg");
 
 function showData() {
-  let findUserName = getData.find((item) => item.userSignUpName);
-  showUserName.innerText = findUserName.userSignUpName;
-  showUserImage.src = findUserName.userSignUpImage;
+  showUserName.innerText = findLogin.userSignUpName;
+  showUserImage.src = findLogin.userSignUpImage;
 }
-
-let findLogin = userArrayData.find((item) => item.userIsLogin === true);
-const redirection = () => {
-  if (findLogin) {
-    window.location.href = "./login.html";
-  }
-};
-// redirection();
+if (
+  window.location.pathname === "/dashboard.html" ||
+  window.location.pathname === "/admin.html"
+) {
+  showData();
+}
 
 const logout = () => {
   // document.body.style.overflow = "hidden";
   // loader.classList.add("load");
   // setTimeout(() => {
   // loader.classList.remove("load");
-  let findTrueInLogin = userArrayData.find((item) => {
-    return item.userIsLogin === true;
-  });
-  findTrueInLogin.userIsLogin = false;
+
+  findLogin.userIsLogin = false;
   localStorage.setItem("userData", JSON.stringify(userArrayData));
   window.location.href = "./index.html";
   // }, 2000);

@@ -271,3 +271,11 @@ a {
   object-fit: contain;
   border-radius: 100%;
 }
+.dashboard-nav .dropdown-toggle{
+background-color: var(--primary-color);
+border-radius: 50px;
+padding:10px 20px !important;
+}
+.dashboard-nav .dropdown-toggle:hover{
+  color: var(--secondary-color) !important;
+}
