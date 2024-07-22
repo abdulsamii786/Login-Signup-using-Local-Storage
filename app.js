@@ -103,36 +103,41 @@ let getData = JSON.parse(localStorage.getItem("userData"));
 const login = () => {
   event.preventDefault();
 
-  localStorage.setItem("userData", JSON.stringify(getData));
-
   if (loginEmail.value !== "" && loginPassword.value !== "") {
     loginError.innerText = "";
-    let isEmailExist = getData.find((item) => {
-      return item.userSignUpEmail === loginEmail.value;
-    });
-    if (isEmailExist.userSignUpEmail === "admin@admin.com") {
-      isEmailExist.userIsLogin = true;
-      localStorage.setItem("userData", JSON.stringify(getData));
-      window.location.href = "./dashboard.html";
-    } else if (isEmailExist) {
-      loginError.innerText = "";
-      if (isEmailExist.userSignUpPass === loginPassword.value) {
-        loginError.innerText = "";
-
-        // document.body.style.overflow = "hidden";
-        // loader.classList.add("load");
-        // setTimeout(() => {
-        // loader.classList.remove("load");
+    if (getData !== null) {
+      let isEmailExist = getData.find((item) => {
+        return item.userSignUpEmail === loginEmail.value;
+      });
+      if (isEmailExist.userSignUpEmail === "admin@admin.com") {
         isEmailExist.userIsLogin = true;
         localStorage.setItem("userData", JSON.stringify(getData));
         window.location.href = "./dashboard.html";
+      } else if (isEmailExist) {
+        loginError.innerText = "";
+        if (isEmailExist.userSignUpPass === loginPassword.value) {
+          loginError.innerText = "";
 
-        // }, 2000);
+          // document.body.style.overflow = "hidden";
+          // loader.classList.add("load");
+          // setTimeout(() => {
+          // loader.classList.remove("load");
+          isEmailExist.userIsLogin = true;
+          localStorage.setItem("userData", JSON.stringify(getData));
+          window.location.href = "./dashboard.html";
+
+          // }, 2000);
+        } else {
+          loginError.innerText = "Invalid Password";
+        }
       } else {
-        loginError.innerText = "Invalid Password";
+        loginError.innerText = "Invalid Email";
       }
     } else {
-      loginError.innerText = "Invalid Email";
+      loginError.innerText = "Data Not Found";
+      setTimeout(() => {
+        loginError.innerText = "";
+      }, 2000);
     }
   } else {
     loginError.innerText = "Invalid Credentials";
